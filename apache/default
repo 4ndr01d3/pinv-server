@@ -1,0 +1,71 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+
+	DocumentRoot /var/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+
+	<Directory /var/www/>
+        RewriteEngine on
+
+####### Config A: original setup. solr urls go straight to solr, and uploader urls to cherrypy/server.py
+#        RewriteRule ^solr$ /solr [R]
+#        RewriteRule ^solr(.*) http://localhost:8983/solr$1 [P]
+#        RewriteRule ^uploader$ /uploader [R]
+#        RewriteRule ^uploader(.*) http://localhost:8888/$1 [P]
+
+####### Config B: new setup. solr urls now also go through cherrypy, for authentication via pinv/proxy.py
+#        RewriteRule ^solr$ /solr [R]
+#        RewriteRule ^solr(.*) http://localhost:8080/solr$1 [P]
+#        RewriteRule ^uploader$ /uploader [R]
+#        RewriteRule ^uploader(.*) http://localhost:8080/$1 [P]
+#        RewriteRule ^probe_solr$ /probe_solr [R]
+#        RewriteRule ^probe_solr(.*) http://localhost:8984/$1 [P]
+#        RewriteRule ^tomcat$ /tomcat/ [R]
+#        RewriteRule ^tomcat(.*) http://localhost:8081/$1 [P]
+
+####### Config C: fixing proxy problems. SOLR rewrites are direct again
+        RewriteRule ^solr$ /solr [R]
+        RewriteRule ^solr(.*) http://localhost:8983/solr$1 [P]
+        RewriteRule ^uploader$ /uploader [R]
+        RewriteRule ^uploader(.*) http://localhost:8080/$1 [P]
+        RewriteRule ^probe_solr$ /probe_solr [R]
+        RewriteRule ^probe_solr(.*) http://localhost:8984/$1 [P]
+        RewriteRule ^tomcat$ /tomcat/ [R]
+        RewriteRule ^tomcat(.*) http://localhost:8081/$1 [P]
+
+		Options FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+#       deny from 137.158.205.121
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /doc/ "/usr/share/doc/"
+    <Directory "/usr/share/doc/">
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.0/255.0.0.0 ::1/128
+    </Directory>
+
+</VirtualHost>

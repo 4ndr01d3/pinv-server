@@ -1,0 +1,23 @@
+recipient="ayton@cbio.uct.ac.za"
+recipient2="aytonm@gmail.com"
+network_name="network_name"
+view_url="http://view"
+delete_url="http://delete"
+
+from mako.template import Template
+from mako.lookup import TemplateLookup
+lookup = TemplateLookup(directories=['html'])
+tpl = lookup.get_template("email.mako")
+print tpl.render(network_name=network_name, view_url=view_url, delete_url=delete_url)
+
+import smtplib
+from email.mime.text import MIMEText
+messagetext = tpl.render(network_name=network_name, view_url=view_url, delete_url=delete_url)
+msg = MIMEText(messagetext)
+sender = "pinv@cbio.uct.ac.za"
+msg['Subject'] = 'PINV network loaded!!!'
+msg['From'] = sender
+msg['To'] = recipient
+s = smtplib.SMTP('cbio.uct.ac.za')
+rsp = s.sendmail(sender, [recipient, recipient2], msg.as_string())
+s.quit()

@@ -1,0 +1,25 @@
+Metadata-Version: 1.0
+Name: CherryProxy
+Version: 0.13
+Summary: A simple, extensible HTTP proxy for content filtering in Python
+Home-page: http://www.decalage.info/python/cherryproxy
+Author: Philippe Lagadec
+Author-email: decalage at laposte dot net
+License: BSD
+Download-URL: http://www.decalage.info/python/cherryproxy
+Description: CherryProxy is a simple, extensible HTTP proxy for content filtering written in Python.
+        It is based on the CherryPy WSGI server and httplib.
+        See http://www.decalage.info/python/cherryproxy for more information.
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: Proxy Servers
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Security

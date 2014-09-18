@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<solr persistent="true">
+  <cores adminPath="/admin/cores" defaultCoreName="collection1">
+    <core name="collection1" instanceDir="./"/>
+    <core name="core0" instanceDir="core0/"/>
+    <core name="core1" instanceDir="core1/"/>
+    <core name="UpdatedMLP" instanceDir="core0/"/>
+    <core name="UpdatedMSM" instanceDir="core0/"/>
+    <core name="UpdatedMTB" instanceDir="core0/"/>
+    <core name="UnifiedMycobacteria" instanceDir="core0/"/>
+  </cores>
+</solr>
