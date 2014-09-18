@@ -3,10 +3,6 @@ if socket.gethostname() == 'biosual':
     TEST = False
     SOLR_BASE="/srv/solr/solr/cores" 
     SOLR_SERVER = "http://biosual.cbio.uct.ac.za:8983"
-elif socket.gethostname() == 'Aytons-MacBook-Air.local':
-    TEST = True
-    SOLR_BASE="/Users/ayton/workspace/networks/solr/cores"   
-    SOLR_SERVER = "http://solrserver:8080"
 else:
     TEST = True
     SOLR_BASE="/Users/4ndr01d3/git/pinv-server/solr/solr/cores"
