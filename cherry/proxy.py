@@ -168,6 +168,11 @@ class PinvProxy(object):
         fout.write(json_cleaned)
         fout.close()
         return hash
+    
+    @cherrypy.expose
+    def clusterize(self,network_name):
+        return pinv.clusterCore(network_name)
+    
     @cherrypy.expose
     def upload(self, network_name=None, network_file=None, annotations_file=None, type="public", email="aytonm@gmail.com"):
         #cherrypy.log("Privacy: "+ type)

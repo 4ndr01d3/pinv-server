@@ -1,9 +1,9 @@
 *.py[cod]
-solr/solr/cores/*
-!solr/solr/cores/blank*
-solr/solr/cores/blank/data/*
-solr/solr/data/
-solr/solr/solr.xml
+solr*/solr/cores/*
+!solr*/solr/cores/blank*
+solr*/solr/cores/blank/data/*
+solr*/solr/data/
+solr*/solr/solr.xml
 .project
 .pydevproject
 ENV

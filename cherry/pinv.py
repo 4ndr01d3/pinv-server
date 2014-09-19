@@ -65,6 +65,13 @@ def load_network(fin):
     fieldnames = ["score_" + x for x in map(fix_name,map(strip,head[2:]))]
     return fieldnames, network
 
+def clusterCore(network_name):
+    core_name = os.path.join(settings.SOLR_BASE, network_name)
+    if os.path.exists(core_name):
+        return "["+network_name+"] to be cluster"
+    else:
+        return "["+network_name+"] doesn't exists"
+
 class DynamicInteraction(object):
     def __init__(self, p1, p2, fieldnames, fieldvalues, unified_score):
         self.id = p1 + "-" + p2 
