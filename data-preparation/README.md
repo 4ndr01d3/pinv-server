@@ -1,7 +1,7 @@
 Uploading your dataset
 ======
 
-When you want to upload your dataset into PINV, the server requires 2 files: one tha includes the interactions and one to include anotations on the proteins:
+When you want to upload your dataset into PINV, the server requires 2 files: one that includes the interactions and one with protein annotations:
 
 Interactions File
 ------
@@ -28,8 +28,10 @@ P66777	Q7D890	0.00000	0.00000	0.33000	0.00000	0.00000	0.33000
 Protein Features File
 ------
 
-Through the Protein Feature File you can enrich the information of your network. Information included here will be used by PINV to provide ways to manipulate the look of your visualization. (e.g. color the nodes by one of the provided features)
+Through the Protein Feature File you can enrich the information of your network. Information included here will be used by PINV to provide ways to manipulate the look of your visualization. (e.g. color the nodes by one of the provided features).
+
 The only required feature is the organism that the protein belongs to. **All** the proteins included in the interaction file should be included in the Features File.
+
 The format of the file it is also TAB delimited, where the first line correspond to the headers (it should also starts with the character ```#```).
 
 **Example**
@@ -95,5 +97,6 @@ The pyhton script provided [here](string2pinv.py) takes 4 parameter when execute
  * *Target Proteins*: Path to the file tha include a list of proteins with uniprot IDs
  * *Output File*: Path to the new file formated to PINV
 
+It goes thorough the STRING file, maps the IDs to UniProtKB, and filter the network to only include the interactions between the proteins included in the query file.
 
      
