@@ -1,14 +1,15 @@
 Uploading your dataset
 ======
 
-When you want to upload your dataset into PINV, the server requires 2 files: one that includes the interactions and one with protein annotations:
+When you want to upload your dataset into PINV, the server requires 2 files: one that includes the protein interactions and one with protein annotations:
 
 Interactions File
 ------
 
-The interactions file is a tab delimited file where the first line should start with ```#``` and correspond to the header. It is used to specify the names of each of the columns. 
+The interactions file is a tab delimited file where the first line should start with ```#``` followed with the header information. 
+The header is used to specify the names of each of the columns in your interactions file. 
 The first two columns are the accession numbers of the interacting proteins.
-Any following column in the file will be consider as score values of some kind of evidence for that interaction, and the last of those scores should be a unified value.
+Any following column in the file will be considered as score values of some kind of evidence for that interaction, and the last of those scores should be a unified value.
 
 **Example**
 ```
@@ -28,11 +29,11 @@ P66777	Q7D890	0.00000	0.00000	0.33000	0.00000	0.00000	0.33000
 Protein Features File
 ------
 
-Through the Protein Feature File you can enrich the information of your network. Information included here will be used by PINV to provide ways to manipulate the look of your visualization. (e.g. color the nodes by one of the provided features).
+Through the Protein Feature File you can enrich the information of your network. Information included here will be used by PINV to provide ways to manipulate your visualization. (e.g. color the nodes by one of the provided features).
 
 The only required feature is the organism that the protein belongs to. **All** the proteins included in the interaction file should be included in the Features File.
 
-The format of the file it is also TAB delimited, where the first line correspond to the headers (it should also starts with the character ```#```).
+The format of the file it is also tab delimited, where the first line should start with ```#``` followed with the header information.
 
 **Example**
 ```
@@ -51,9 +52,10 @@ O53921	MTB	MT1712	PROBABLE TRANSCRIPTIONAL REGULATORY PROTEIN (Transcriptional r
 Creating the interactions file from STRING db
 ======
 
-There are multiple ways to obtain the data from STRING, for this example we will use the flat files available to download in [this link](http://string-db.org/newstring_cgi/show_download_page.pl).
+There are multiple ways to obtain the data from STRING, for this examplewe will use the flat files available through this link. 
 For this example we are selecting the protein network data for the organism *Homo Sapiens*. 
-The first lines of this file looks like:
+The first lines of this file looks like this:
+
 ```
 protein1 protein2 combined_score
 9606.ENSP00000000233 9606.ENSP00000020673 176
@@ -70,10 +72,11 @@ protein1 protein2 combined_score
 
 From Ensembl protein ids to UniProtKB IDs
 ------
-The file that STRING provides uses Ensemble Protein IDS, PINV doesn't discriminate which type of accession number do you use for the network, as long as it is consistent with the ids in the features file.
-For this example we will create an interaction file that uses UniprotKB accession numbers. It is possible to get this information programatically through the REST services of UniProt, quering protein by protein.
+The file that STRING provides contains Ensemble Protein IDs, PINV doesn't discriminate between the types of accession numbers you use for the network, as long as it corresponds (i.e. consistent type) with the IDs in the features file. 
+For this example we will create an interaction file that uses UniprotKB accession numbers. 
+It is possible to get this information programatically through the REST services of UniProt, querying protein by protein.
  
-In this particular example we have retrieved beforehand all the mappings between the 2 identifiers for proteins in Homo Sapiens using this URL request: http://www.uniprot.org/uniprot/?query=organism:9606&format=tab&columns=id,database(STRING) and save it into a file that looks like this:
+In this particular example we have retrieved all the mappings between 2 identifiers for proteins in *Homo Sapiens* using this URL request: http://www.uniprot.org/uniprot/?query=organism:9606&format=tab&columns=id,database(STRING) and save it into a file that looks like this:
 
 ```
 Entry	Cross-reference (STRING)
@@ -91,12 +94,14 @@ P01892
 Filtering the network with a list of proteins
 -----
 
-The pyhton script provided [here](string2pinv.py) takes 4 parameter when executed ina the command line:
- * *String File*: File path to the string data. It uses Ensemble protein identifiers and it is space separated.
- * *Uniprot Mapping*: Path to the file from the Uniprot REST services with tab format
- * *Target Proteins*: Path to the file tha include a list of proteins with uniprot IDs
- * *Output File*: Path to the new file formated to PINV
+The pyhton script provided [here](string2pinv.py) takes 4 parameter when executed through the command line:
+ * *String File*: File path to the string data. It uses Ensemble protein identifiers and is space separated.
+ * *Uniprot Mapping*: Path to the file from the Uniprot REST services in a tab deliminated format.
+ * *Target Proteins*: Path to the file that includes a list of proteins with uniprot IDs
+ * *Output File*: Path to the new file formatted to PINV
 
-It goes thorough the STRING file, maps the IDs to UniProtKB, and filter the network to only include the interactions between the proteins included in the query file.
+It goes thorough the STRING file, maps the IDs to UniProtKB, and filters the network to include only the interactions between the proteins included in the query file.
 
-     
+Run with:
+
+Python string2pinv.py <string_file_name> <uniprot_mapping_file_name> <target_proteins_file_name> <output_file_name>     
