@@ -103,5 +103,6 @@ The pyhton script provided [here](string2pinv.py) takes 4 parameter when execute
 It goes thorough the STRING file, maps the IDs to UniProtKB, and filters the network to include only the interactions between the proteins included in the query file.
 
 Run with:
-
+```
 Python string2pinv.py <string_file_name> <uniprot_mapping_file_name> <target_proteins_file_name> <output_file_name>     
+```
