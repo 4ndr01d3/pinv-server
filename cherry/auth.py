@@ -80,7 +80,7 @@ from mako.template import Template
 def sendmail(recipient, view_url, delete_url, network_name):
     print "SENNNDING MAIL"
     gmail_user = 'pinv.biosual@gmail.com'
-    gmail_pwd = '1nt3r4ct10ns'
+    gmail_pwd = ''
     from mako.lookup import TemplateLookup
     lookup = TemplateLookup(directories=['html'])
     tpl = lookup.get_template("email.mako")
