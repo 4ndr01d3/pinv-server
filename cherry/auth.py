@@ -5,9 +5,8 @@ import os
 
 KEY_FILE='keys.db'
 
-def save_key(core_name, email):
+def save_key(core_name, email,type):
     core_name = str(core_name)
-    print type(core_name)
     print "saving key for", core_name, email
     s = shelve.open(KEY_FILE)
     if core_name in s:
@@ -15,6 +14,8 @@ def save_key(core_name, email):
     salt = os.urandom(32).encode('base_64')
     keys = hashlib.md5( salt + core_name ).hexdigest()
     view_key, delete_key = keys[:16],keys[16:]
+    if type != "private":
+        view_key="";
     s[core_name] = (view_key, delete_key, salt, email)
     s.close()
     return view_key, delete_key
@@ -52,14 +53,22 @@ def is_private(core_name):
         s.close()
         return False
     else:
+        view_key, delete_key, salt, email = s[core_name]
         s.close()
+        if view_key=="":
+            return False
         return True
 
 def private_cores():
     s = shelve.open(KEY_FILE)
     names = s.keys()
+    names2= []
+    for name in names:
+        view_key, delete_key, salt, email = s[name]
+        if view_key != "":
+            names2.append(name)
     s.close()
-    return names
+    return names2
 
 def dump_keys():
     s = shelve.open(KEY_FILE)
@@ -71,7 +80,7 @@ from mako.template import Template
 def sendmail(recipient, view_url, delete_url, network_name):
     print "SENNNDING MAIL"
     gmail_user = 'pinv.biosual@gmail.com'
-    gmail_pwd = ''
+    gmail_pwd = '1nt3r4ct10ns'
     from mako.lookup import TemplateLookup
     lookup = TemplateLookup(directories=['html'])
     tpl = lookup.get_template("email.mako")
@@ -91,3 +100,4 @@ def sendmail(recipient, view_url, delete_url, network_name):
     msg['To'] = recipient
     rsp = s.sendmail(sender, [recipient], msg.as_string())
     s.quit()
+    return messagetext

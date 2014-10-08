@@ -191,15 +191,19 @@ class PinvProxy(object):
             time.sleep(2)
             message, result = pinv.create_new_solr(network_name)
             time.sleep(2)
-            #cherrypy.log("*** UPLOAD. Connecting to: "+ solr_url)
+            cherrypy.log("*** UPLOAD. Connecting to: "+ solr_url)
             si = sunburnt.SolrInterface(solr_url)
             time.sleep(2)
             inv.upload(si)
+            view_key, delete_key = auth.save_key(network_name, email,type)
             if type == "private":
-                view_key, delete_key = auth.save_key(network_name, email)
                 view_url = "http://biosual.cbio.uct.ac.za/pinViewer.html?core=%(core)s&key=%(key)s" % {'core':network_name,'key':view_key}
                 delete_url = "http://biosual.cbio.uct.ac.za/solr/admin/cores?action=UNLOAD&deleteIndex=true&core=%(core)s&key=%(key)s" % {'core':network_name,'key':delete_key}
-                auth.sendmail(email,view_url, delete_url,network_name)
+            else:
+                view_url = "http://biosual.cbio.uct.ac.za/pinViewer.html?core=%(core)s" % {'core':network_name}
+                delete_url = "http://biosual.cbio.uct.ac.za/solr/admin/cores?action=UNLOAD&deleteIndex=true&core=%(core)s&key=%(key)s" % {'core':network_name,'key':delete_key}
+            msg =auth.sendmail(email,view_url, delete_url,network_name)
+            #cherrypy.log(msg);
             errormessage = "<br/>".join(inv.errors)
             tmpl = lookup.get_template("upload_result.mako")
             return tmpl.render(network_name=network_name, 
