@@ -52,8 +52,9 @@ def check_request(rq):
     return False
 
 def remove_jsonwrf(json_text):
+    json_text = json_text.strip()
     p1 = json_text.find("(")
-    p2 = json_text.find(")")
+    p2 = json_text.rfind(")")
     if p2==len(json_text)-1:
         return (json_text[p1+1:-1],json_text[:p1])
     else:
@@ -61,6 +62,7 @@ def remove_jsonwrf(json_text):
 
 def strip_private_cores(json_response, blacklist):
     import json
+    cherrypy.log(str(type(json_response)))
     json_text, wrf = remove_jsonwrf(json_response)
     json_obj = json.loads(json_text)
     cores ={}
