@@ -176,7 +176,7 @@ class PinvProxy(object):
         return pinv.clusterCore(network_name)
     
     @cherrypy.expose
-    def upload(self, network_name=None, network_file=None, annotations_file=None, type="public", email="aytonm@gmail.com"):
+    def upload(self, network_name=None, network_file=None, annotations_file=None, type="public", email="pinv.biosual@gmail.com"):
         #cherrypy.log("Privacy: "+ type)
         #cherrypy.log("annotations: "+ repr(network_file))
         #cherrypy.log("network: "+ repr(annotations_file))
@@ -199,7 +199,7 @@ class PinvProxy(object):
                 view_key, delete_key = auth.save_key(network_name, email)
                 view_url = "http://biosual.cbio.uct.ac.za/pinViewer.html?core=%(core)s&key=%(key)s" % {'core':network_name,'key':view_key}
                 delete_url = "http://biosual.cbio.uct.ac.za/solr/admin/cores?action=UNLOAD&deleteIndex=true&core=%(core)s&key=%(key)s" % {'core':network_name,'key':delete_key}
-                auth.sendmail("ayton@cbio.uct.ac.za",view_url, delete_url,network_name)
+                auth.sendmail(email,view_url, delete_url,network_name)
             errormessage = "<br/>".join(inv.errors)
             tmpl = lookup.get_template("upload_result.mako")
             return tmpl.render(network_name=network_name, 
