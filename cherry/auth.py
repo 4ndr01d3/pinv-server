@@ -64,9 +64,12 @@ def private_cores():
     names = s.keys()
     names2= []
     for name in names:
-        view_key, delete_key, salt, email = s[name]
-        if view_key != "":
-            names2.append(name)
+        try:
+            view_key, delete_key, salt, email = s[name]
+            if view_key != "":
+                names2.append(name)
+        except:
+            print "error reading",name,"from the keys"
     s.close()
     return names2
 
