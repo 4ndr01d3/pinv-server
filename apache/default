@@ -21,20 +21,12 @@
 #        RewriteRule ^solr(.*) http://localhost:8080/solr$1 [P]
 #        RewriteRule ^uploader$ /uploader [R]
 #        RewriteRule ^uploader(.*) http://localhost:8080/$1 [P]
-#        RewriteRule ^probe_solr$ /probe_solr [R]
-#        RewriteRule ^probe_solr(.*) http://localhost:8984/$1 [P]
-#        RewriteRule ^tomcat$ /tomcat/ [R]
-#        RewriteRule ^tomcat(.*) http://localhost:8081/$1 [P]
 
 ####### Config C: fixing proxy problems. SOLR rewrites are direct again
         RewriteRule ^solr$ /solr [R]
         RewriteRule ^solr(.*) http://localhost:8983/solr$1 [P]
         RewriteRule ^uploader$ /uploader [R]
         RewriteRule ^uploader(.*) http://localhost:8080/$1 [P]
-        RewriteRule ^probe_solr$ /probe_solr [R]
-        RewriteRule ^probe_solr(.*) http://localhost:8984/$1 [P]
-        RewriteRule ^tomcat$ /tomcat/ [R]
-        RewriteRule ^tomcat(.*) http://localhost:8081/$1 [P]
 
 		Options FollowSymLinks MultiViews
 		AllowOverride None

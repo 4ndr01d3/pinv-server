@@ -8,4 +8,5 @@ solr*/solr/solr.xml
 .pydevproject
 ENV
 cherry/keys.db
+cherry/saves/*.json
 solr.log
