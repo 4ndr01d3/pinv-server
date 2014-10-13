@@ -62,7 +62,6 @@ def remove_jsonwrf(json_text):
 
 def strip_private_cores(json_response, blacklist):
     import json
-    cherrypy.log(str(type(json_response)))
     json_text, wrf = remove_jsonwrf(json_response)
     json_obj = json.loads(json_text)
     cores ={}
@@ -195,6 +194,7 @@ class PinvProxy(object):
             si = sunburnt.SolrInterface(solr_url)
             time.sleep(2)
             inv.upload(si)
+            cherrypy.log(str(inv.errors));
             view_key, delete_key = auth.save_key(network_name, email,type)
             if type == "private":
                 view_url = "http://biosual.cbio.uct.ac.za/pinViewer.html?core=%(core)s&key=%(key)s" % {'core':network_name,'key':view_key}

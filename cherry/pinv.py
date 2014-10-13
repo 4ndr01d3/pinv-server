@@ -42,7 +42,7 @@ def load_annotations(fin):
         line = fin.readline()
     while line:
         if not line.startswith("#") and line.strip() != '':
-            row = line.strip().split("\t")
+            row = [x.strip() for x in line.split("\t")]
             assert len(row) == len(head)
             annos[row[0]] = map(strip,row[1:])
         line = fin.readline()

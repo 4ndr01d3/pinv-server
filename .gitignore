@@ -9,4 +9,5 @@ solr*/solr/solr.xml
 ENV
 cherry/keys.db
 cherry/saves/*.json
+Web.log
 solr.log
