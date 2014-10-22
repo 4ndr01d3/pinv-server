@@ -48,13 +48,13 @@ P64398	MTB	hrcA	Heat-inducible transcription repressor hrcA	virulence, detoxific
 O53921	MTB	MT1712	PROBABLE TRANSCRIPTIONAL REGULATORY PROTEIN (Transcriptional regulator, ArsR family)	regulatory proteins	1766	46418.37	0.33021	82	0.00133
 ```
 
-From Excel to Tab Separated Values TSV {#excel}
+From Excel to Tab Separated Values TSV
 ------
 If you have your data in excel and want to import it to PINV, what you need to do is use the option ```Save as...``` from the File menu in excel, 
 and then you should choose ```Windows Formatted Text (.txt)```. This format ensures that you have the right separators in between values (```\t```) 
 and in between lines (```\n```).
 
-Creating the interactions file from the STRING database {#string_file}
+Creating the interactions file from the STRING database
 ======
 It is usual that a researcher has the proteins with some annotations, but wants to visualize them in a network. We can obtain the interactions from STRING.
 
@@ -123,7 +123,7 @@ def getQueryIDs(featuresF):
 Creating the Network file
 ------
 Now with all this information we can generate the network file. 
-The following function requires a file in ```stringF``` which should be as explained [#header1](above). 
+The following function requires a file in ```stringF``` which should be as explained above. 
 Then going through the lines of the files extract the Ensembl IDs of each interaction, and try to map them to uniprot IDs with the previously created dictionary.
 If the mapping is OK, then it rewrites this line in the output file (```N_outputF```) using UniProt IDs. 
 
