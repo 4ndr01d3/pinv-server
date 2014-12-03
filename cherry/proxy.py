@@ -194,6 +194,7 @@ class PinvProxy(object):
             si = sunburnt.SolrInterface(solr_url)
             time.sleep(2)
             inv.upload(si)
+            inv.createClusters(si,3,7)
             cherrypy.log(str(inv.errors));
             view_key, delete_key = auth.save_key(network_name, email,type)
             if type == "private":

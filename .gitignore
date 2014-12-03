@@ -11,4 +11,5 @@ ENV
 cherry/keys.db
 cherry/saves/*.json
 Web.log
+solr4/logs/
 solr.log
